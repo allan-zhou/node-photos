@@ -31,7 +31,7 @@ exports.submit = (req, res, next) => {
       arr.push({ name: filename, desc: desc, path: pathname });
     }
     photoModel.insertMany(arr, (err, docs) => {
-      if(err) next(err);
+      if (err) next(err);
       console.log(docs);
     })
   });
@@ -44,12 +44,14 @@ exports.submit = (req, res, next) => {
 
   form.on('end', function () {
     console.log('upload end');
-
     res.redirect('/')
   });
 
 }
 
 exports.list = (req, res, next) => {
-  res.render('index', { title: 'Photos' });
+  photoModel.find({}, (err, docs) => {
+    if (err) next(err);
+    res.render('index', { title: 'Photos', data: docs });
+  });
 }
