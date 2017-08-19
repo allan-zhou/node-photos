@@ -55,3 +55,12 @@ exports.list = (req, res, next) => {
     res.render('index', { title: 'Photos', data: docs });
   });
 }
+
+exports.downland = (req, res, next) => {
+  var photoid = req.params.id;
+  photoModel.findById(photoid, (err, doc) => {
+    var type = doc.path.split('.')[1];
+    res.download(`${appconfig.uploadDir}/${doc.path}`, `${doc.name}.${type}`);
+  })
+
+}

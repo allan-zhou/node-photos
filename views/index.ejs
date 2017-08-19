@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= settings.config.title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
 
-    <% data.forEach(function(image) { %>
+<head>
+  <title>
+    <%= settings.config.title %>
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h1>
+    <%= title %>
+  </h1>
+  <p>Welcome to
+    <%= title %>
+  </p>
+
+  <% data.forEach(function(image) { %>
+    <div>
+      <p>
+        <%= image.name %>
+        <input type="button" value="下载" onclick='javascript:downland("<%= image.id %>")'>
+      </p>
+      <!-- <p><%= image.desc %></p> -->
       <div>
-        <p><%= image.name %></p>
-        <!-- <p><%= image.desc %></p> -->
-        <div>
-          <img src='/photos/<%= image.path %>' alt='<%= image.name %>' height="120" width="200">
-        </div>
+        <img src='/photos/<%= image.path %>' alt='<%= image.name %>' height="120" width="200">
       </div>
+    </div>
     <% }); %>
 
-  </body>
+      <script type="text/javascript">
+        function downland(photoid) {
+          window.location.href = '/upload/downland/' + photoid;
+        }
+      </script>
+</body>
+
 </html>
